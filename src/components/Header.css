@@ -1,0 +1,23 @@
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+}
+.header-list{
+    margin: 1rem 2rem;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header-item{
+    margin: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

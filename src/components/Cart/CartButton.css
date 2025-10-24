@@ -1,0 +1,13 @@
+.cart-btn{
+    width: 4.5rem;
+    height: 3rem;
+    border: 2px solid rgb(61, 119, 166);
+    background-color: black;
+    color: white;
+    text-align: center;
+    font: inherit;
+}
+label{
+    color: rgb(61, 119, 166);
+    font-weight: bold;
+}

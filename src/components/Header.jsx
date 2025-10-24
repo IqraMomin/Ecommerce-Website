@@ -1,9 +1,11 @@
 import React from 'react'
 import "./Header.css"
 import CartButton from './Cart/CartButton'
+import Banner from './Banner'
 
 function Header() {
     return (
+        <React.Fragment>
         <header className='header'>
             <div className='header-list'>
                 <div className='header-item'>HOME</div>
@@ -13,6 +15,9 @@ function Header() {
            <CartButton/>
 
         </header>
+        <Banner/>
+        </React.Fragment>
+
     )
 }
 

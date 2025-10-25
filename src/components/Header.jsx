@@ -1,23 +1,21 @@
 import React from 'react'
 import "./Header.css"
-import CartButton from './Cart/CartButton'
-import Banner from './Banner'
 
-function Header() {
+function Header(props) {
     return (
-        <React.Fragment>
         <header className='header'>
-            <div className='header-list'>
-                <div className='header-item'>HOME</div>
-                <div className='header-item'>STORE</div>
-                <div className='header-item'>ABOUT</div>                
-           </div>
-           <CartButton/>
-
+            <nav className='navbar'>
+                <ul>
+                    <li><a href='#'>HOME</a></li>
+                    <li><a href='#'>STORE</a></li>
+                    <li><a href='#'>ABOUT</a></li>
+                    <button onClick={props.modal} className='cart-btn'>Cart <span className='cart-count'>0</span></button>
+                </ul>
+            </nav>
+        <div className='banner'>
+            <h1>The Generics</h1>
+        </div>
         </header>
-        <Banner/>
-        </React.Fragment>
-
     )
 }
 

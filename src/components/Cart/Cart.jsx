@@ -15,43 +15,39 @@ function Cart(props) {
 
             quantity: 2,
 
-        },
-
-        {
-
-            title: 'Black and white Colors',
-
-            price: 50,
-
-            imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-
-            quantity: 3,
-
-        },
-
-        {
-
-            title: 'Yellow and Black Colors',
-
-            price: 70,
-
-            imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-
-            quantity: 1,
-
         }
 
     ]
     return (
         <Modal>
+            <div className='cart-div'>
             <h2>CART</h2>
             <button onClick={props.modal} className='cancel'>X</button>
             <div className='cart-items'>
             <span className='cart-column'>ITEMS</span>
             <span className='cart-column'>PRICE</span>
             <span className='cart-column'>QUANTITY</span>
-            </div>
+            </div>   
+            <ul>        
+                {cartElements.map(ele=>{
+                    return <div className='cart-row'>
+                        <span className='cart-row cart-column'>
+                        <img className="cart-img" src={ele.imageUrl}/>
+                        <span>{ele.title}</span>
+                        </span>
+                        <h6>{ele.price}</h6>
+                        <span className='cart-row cart-column'>
+                            <h6>{ele.quantity}</h6>
+                            <span>
+                                <button className='remove'>REMOVE</button>
+                            </span>
+                        </span>
+                        
+                        </div>   
+                })}
+            </ul> 
             
+            </div>
         </Modal>
     )
 }

@@ -1,23 +1,16 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Modal from '../UI/Modal'
 import "./Cart.css"
+import CartContext from '../../store/cart-context'
 
 function Cart(props) {
-    const cartElements = [
+    const cartCtx = useContext(CartContext);
+    const [quantity,setQuantity] = useState(1);
 
-        {
-
-            title: 'Colors',
-
-            price: 100,
-
-            imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-
-            quantity: 2,
-
-        }
-
-    ]
+    const quantityChangeHandler = (e)=>{
+        setQuantity(e.target.value);
+    }
+    const cartElements = cartCtx.items;
     return (
         <Modal>
             <div className='cart-div'>
@@ -30,14 +23,14 @@ function Cart(props) {
             </div>   
             <ul>        
                 {cartElements.map(ele=>{
-                    return <div className='cart-row'>
+                    return <div className='cart-row' key={ele.id} id={ele.id}>
                         <span className='cart-row cart-column'>
                         <img className="cart-img" src={ele.imageUrl}/>
                         <span>{ele.title}</span>
                         </span>
                         <h6>{ele.price}</h6>
                         <span className='cart-row cart-column'>
-                            <h6>{ele.quantity}</h6>
+                            <input onChange={quantityChangeHandler} value={quantity}/>
                             <span>
                                 <button className='remove'>REMOVE</button>
                             </span>

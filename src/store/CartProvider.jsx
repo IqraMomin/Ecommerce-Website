@@ -3,7 +3,8 @@ import CartContext from "./cart-context";
 
 const defaultValues = {
     items:[],
-    totalQuantity:0
+    totalQuantity:0,
+    lastAction:null
 }
 
 const reducer=(state,action) =>{
@@ -11,14 +12,26 @@ const reducer=(state,action) =>{
         const existingItemIndex = state.items.findIndex(ele=>ele.id===action.item.id);
         const existingItem = state.items[existingItemIndex];
         if(existingItem){
-            return false;
+            console.log("Inside existing",existingItemIndex);
+            return {
+                ...state,lastAction:"EXISTS"
+            }
         }
         const updatedQuantity = state.totalQuantity +1;
         const updatedCartItem = state.items.concat(action.item);
+        console.log(updatedQuantity);
+        
 
         return {
             items:updatedCartItem,
-            totalQuantity:updatedQuantity
+            totalQuantity:updatedQuantity,
+            lastAction:"ADDED"
+        }
+    }
+    if(action.type==="RESET"){
+        return {
+            ...state,
+            lastAction:null
         }
     }
     if(action.type==='REMOVE'){
@@ -33,24 +46,33 @@ const CartProvider = (props)=>{
 
     const [item,dispatchItem] = useReducer(reducer,defaultValues);
 
-    const addToCart = (item)=>{
+    const addToCartHandler = (item)=>{
         dispatchItem({type:'ADD',item:item});
+        
     }
 
-    const removeItem=(id)=>{
+    const removeItemHandler=(id)=>{
         dispatchItem({type:'REMOVE',id:id});
+    }
+
+    const resetLastAction = ()=>{
+        dispatchItem({type:"RESET"});
     }
 
 
 
     const cartData = {
         items:item.items,
-        totalQuantity:item.totalQuantity
+        totalQuantity:item.totalQuantity,
+        lastAction:item.lastAction,
+        addToCart:addToCartHandler,
+        removeItem:removeItemHandler,
+        resetLastAction
 
     }
-    return <CartContext value={cartData}>
+    return <CartContext.Provider value={cartData}>
         {props.children}
-    </CartContext>
+    </CartContext.Provider>
 
 }
 

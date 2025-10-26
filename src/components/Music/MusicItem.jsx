@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext} from 'react'
 import Button from '../UI/Button'
 import "./MusicItem.css"
 import CartContext from '../../store/cart-context'
+
 
 function MusicItem(props) {
 
@@ -13,12 +14,11 @@ function MusicItem(props) {
             id:props.id,
             title:props.title,
             price:props.price,
+            imageUrl:props.image,
             quantity:1
         }
-        const newItem = cartCtx.addToCart(item);
-        if(!newItem){
-            alert("Item already present in cart");
-        }
+        cartCtx.addToCart(item);
+
     }
     return (
         <li className='item-div'>

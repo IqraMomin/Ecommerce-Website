@@ -1,41 +1,32 @@
-import React, { useState } from "react"
-import './App.css'
-import Header from './components/Header'
-import Footer from "./components/Footer"
-import Music from "./components/Music/Music"
-import Merch from "./components/Merch/Merch"
-import Cart from "./components/Cart/Cart"
+import React from "react"
+import Store from "./pages/Store"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import About from "./pages/About"
+import Root from "./pages/Root"
 import CartProvider from "./store/CartProvider"
-import { Toaster } from "react-hot-toast";
-function App() {
+import Home from "./pages/Home"
 
-  const [modal,setModal] = useState(false);
-
-  const modalHandler = ()=>{
-    setModal(prev=> !prev);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      { path: "/", element: <Home /> },
+      {path:"/store",element:<Store/>},
+      { path: "/about", element: <About /> }
+    ]
   }
 
-  return (
-   
-    <div className="app">
-       <CartProvider>
-      <Header modal={modalHandler}/>
-      {modal && <Cart modal={modalHandler}/>}
-      <main className="main-content">
-      <Music/>
-      <Merch/>
-      <button className="see-cart">See Cart</button>
-      </main>
-      
-      <Footer/>
-      </CartProvider>
-      <Toaster position="top-right" reverseOrder={false}/>
-    </div>
-    
-    
+])
 
-        
-  )
+const App = () => {
+  return <CartProvider>
+  <RouterProvider router={router} />
+  </CartProvider>
+
 }
+
+
+
 
 export default App

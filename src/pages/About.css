@@ -1,0 +1,26 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+div{
+    display: block;
+}
+.about-div img{
+    float: left;
+    margin: 20px 50px;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+.about-div{
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: justify;
+    
+}
+.about-div p{
+    font-size: 17px;
+    margin: 20px;
+    color: #777;
+}

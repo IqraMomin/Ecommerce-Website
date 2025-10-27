@@ -17,7 +17,6 @@ function Store() {
       <button className="see-cart">See Cart</button>
       </main>
       
-      <Footer/>
     </div>
     
         

@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import { Outlet } from 'react-router-dom'
 import Cart from "./../components/Cart/Cart"
 import CartProvider from '../store/CartProvider'
+import Footer from '../components/Footer'
 
 function Root() {
     const [modal,setModal] = useState(false);
@@ -15,6 +16,7 @@ function Root() {
         <Header modal={modalHandler}/>
         {modal && <Cart modal={modalHandler}/>}
         <Outlet/>
+        <Footer/>
         </>
 
     )

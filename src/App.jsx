@@ -1,31 +1,31 @@
 import React from "react"
 import Store from "./pages/Store"
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import About from "./pages/About"
 import Root from "./pages/Root"
 import CartProvider from "./store/CartProvider"
 import Home from "./pages/Home"
 import ContactUs from "./pages/ContactUs"
-import ProdutcDetail from "./pages/ProductDetail"
+import ProductDetail from "./pages/ProductDetail"
+import ProductProvider from "./store/ProductProvider"
+import Login from "./pages/Login"
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    children: [
-      { path: "/", element: <Home /> },
-      { path: "/store", element: <Store /> },
-      { path: "/about", element: <About /> },
-      { path: "/contact", element: <ContactUs /> },
-      {path:"/store/:productId",element:<ProdutcDetail/>}
-    ]
-  }
 
-])
 
 const App = () => {
   return <CartProvider>
-    <RouterProvider router={router} />
+    <ProductProvider>
+    <Routes>
+            <Route path="/" element={<Root />}>
+              <Route index element={<Home />} />
+              <Route path="store" element={<Store />} />
+              <Route path="store/:productId" element={<ProductDetail />} />
+              <Route path="about" element={<About />} />
+              <Route path="contact" element={<ContactUs />} />
+              <Route path="login" element={<Login/>}/>
+            </Route>
+          </Routes>
+    </ProductProvider>
   </CartProvider>
 
 }

@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import "./ProductDetail.css";
+import ProductContext from '../store/product-context';
 
 function ProdutcDetail() {
-    const {productId} = useParams();
+    const param = useParams();
+    const productId = +param.productId
+
+    const productCtx = useContext(ProductContext);
+    const element = productCtx.products.filter(ele=>{
+        return ele.id === productId
+    })
+    const data = element[0];
     return (
         <div className='products-div'>
             <div className='products-small-img'>
@@ -13,13 +21,13 @@ function ProdutcDetail() {
                 <img/>
             </div>
             <div className='products-large-img'>
-                <img/>
+                <img src={data.image}/>
             </div>
             <div>
             <div className='products-detail-div'>
-                <h2>Smartees </h2>
-                <p>Men Full Sleeve Printed Hooded Sweatshirt</p>
-                <p>$20</p>
+                <h2>{data.title} </h2>
+                <p>{data.description}</p>
+                <p>${data.price}</p>
             </div>
             <div className='products-details'>
                 <h2>Product details</h2>

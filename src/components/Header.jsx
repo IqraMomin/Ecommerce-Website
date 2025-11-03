@@ -16,6 +16,7 @@ function Header(props) {
                     <li><NavLink to="/store">STORE</NavLink></li>
                     <li><NavLink to="/about">ABOUT</NavLink></li>
                     <li><NavLink to="/contact">CONTACT US</NavLink></li>
+                    <li><NavLink to="/login">Login</NavLink></li>
                     {isStorePage && <button onClick={props.modal} className='cart-btn'>Cart <span className='cart-count'>{quantity}</span></button>}
                 </ul>
             </nav>

@@ -1,9 +1,7 @@
 import React from "react"
 import './../App.css'
-import Footer from "../components/Footer"
 import Music from "../components/Music/Music"
 import Merch from "../components/Merch/Merch"
-import ProductProvider from "../store/ProductProvider"
 
 
 function Store() {

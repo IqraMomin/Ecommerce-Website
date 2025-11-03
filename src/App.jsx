@@ -1,4 +1,4 @@
-import React,{useContext} from "react"
+import React,{useContext, useState} from "react"
 import Store from "./pages/Store"
 import { Route ,Switch} from "react-router-dom"
 import About from "./pages/About"
@@ -17,7 +17,7 @@ import AuthContext from "./store/auth-context"
 const App = () => {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
-
+ 
   return <CartProvider>
     <ProductProvider>
       <Root>

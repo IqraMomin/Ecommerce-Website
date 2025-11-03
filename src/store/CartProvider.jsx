@@ -1,12 +1,13 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState,useEffect } from "react";
 import CartContext from "./cart-context";
+import axios from "axios";
 
 const defaultValues = {
     items:[],
     totalQuantity:0,
     lastAction:null
 }
-
+const api_crud = "https://crudcrud.com/api/55d24266539c4906b413fe85cc9a7bec";
 const reducer=(state,action) =>{
     if(action.type==='ADD'){
         const existingItemIndex = state.items.findIndex(ele=>ele.id===action.item.id);
@@ -19,7 +20,9 @@ const reducer=(state,action) =>{
         }
         const updatedQuantity = state.totalQuantity +1;
         const updatedCartItem = state.items.concat(action.item);
-        console.log(updatedQuantity);
+        
+        
+        
         
 
         return {
@@ -37,6 +40,14 @@ const reducer=(state,action) =>{
     if(action.type==='REMOVE'){
 
     }
+    if(action.type==="SET_CART"){
+        return {
+            ...state,
+            items:action.item,
+            totalQuantity:action.item.length,
+            lastAction:null
+        }
+    }
 
     return state;
 
@@ -45,9 +56,27 @@ const reducer=(state,action) =>{
 const CartProvider = (props)=>{
 
     const [item,dispatchItem] = useReducer(reducer,defaultValues);
+    const [email,setEmail] = useState("");
+
+    useEffect(()=>{
+        if(!email) return;
+        const fetchCart =async()=>{
+            try{
+               const response = await axios.get(`${api_crud}/cart_${email}`);
+               dispatchItem({type:"SET_CART",item:response.data})
+            }catch(err){
+                console.log(err);
+            }
+        }
+        fetchCart();
+    },[email]);
 
     const addToCartHandler = (item)=>{
         dispatchItem({type:'ADD',item:item});
+        if(email){
+            addToDatabase(email,item);
+        }
+        
         
     }
 
@@ -58,13 +87,29 @@ const CartProvider = (props)=>{
     const resetLastAction = ()=>{
         dispatchItem({type:"RESET"});
     }
+    const getEmailHandler = (email)=>{
+        setEmail(email);
+        
+    }
+
+    function addToDatabase(key,item){
+        try{
+            axios.post(`${api_crud}/cart_${key}`,item);
+        }
+        catch(err){
+            console.log(err);
+        }
+        
+    }
 
 
 
     const cartData = {
+        email:email,
         items:item.items,
         totalQuantity:item.totalQuantity,
         lastAction:item.lastAction,
+        getEmail:getEmailHandler,
         addToCart:addToCartHandler,
         removeItem:removeItemHandler,
         resetLastAction

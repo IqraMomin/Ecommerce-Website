@@ -1,40 +1,45 @@
-import React, { useContext, useRef, useState } from 'react'
-import authContext from '../store/auth-context';
+import React, { useContext, useRef, useState} from 'react'
+import { useHistory } from "react-router-dom"
+import AuthContext from '../store/auth-context';
 
 function Login() {
-    const [isLogin,setIsLogin] = useState(true);
-    const emailInputRef = useRef();
+ const emailInputRef = useRef();
     const passwordInputRef = useRef();
-    const authCtx = useContext(authContext); 
+    const authCtx = useContext(AuthContext); 
+    const history = useHistory();
 
     const formSubmitHandler = async (event)=>{
-        event.preventDEfault();
+        event.preventDefault();
         const userData = {
             email:emailInputRef.current.value,
             password:passwordInputRef.current.value,
             returnSecureToken: true
         }
-        if(isLogin){
+        
             try{
                 const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAPItEdIRymlHllXc5EWozfIIUZ3q4TTOY",{
                     method:"POST",
                     body:JSON.stringify(userData),
                     headers:{
-                        "COntent-Type":"application/json"
+                        "Content-Type":"application/json"
                     }
                 })
                 const data = await response.json();
                 if(response.ok){
                     authCtx.login(data.idToken);
+                    history.replace("/")
                 }else{
+                    let errorMessage = "Authentication Failed";
+                    if(data && data.error && data.error.message){
+                        errorMessage = data.error.message;
+                    }
+                    console.log(errorMessage);
 
                 }
             }
             catch(err){
-                console.log(err);
+                alert(err);
             }
-
-        }
     }
     return (
         <form onSubmit={formSubmitHandler}>

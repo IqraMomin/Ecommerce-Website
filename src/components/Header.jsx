@@ -8,24 +8,28 @@ function Header(props) {
     const quantity = cartCtx.totalQuantity;
     const location = useLocation();
     let isStorePage = location.pathname==="/store";
+    let isHomePage = location.pathname=== "/home";
     return (
         <header className='header'>
             <nav className='navbar'>
                 <ul>
-                    <li><NavLink to="/">HOME</NavLink></li>
+                    <li><NavLink to="/home">HOME</NavLink></li>
                     <li><NavLink to="/store">STORE</NavLink></li>
                     <li><NavLink to="/about">ABOUT</NavLink></li>
                     <li><NavLink to="/contact">CONTACT US</NavLink></li>
-                    <li><NavLink to="/login">Login</NavLink></li>
+                    <li><NavLink to="/login">LOGIN</NavLink></li>
                     {isStorePage && <button onClick={props.modal} className='cart-btn'>Cart <span className='cart-count'>{quantity}</span></button>}
                 </ul>
             </nav>
         <div className='banner'>
             <h1>The Generics</h1>
-            <div className='btn-div'>
+            {isHomePage && <div className='btn-div'>
                 <button className='latest-album'>Get Our Latest Album</button>
+                <div>
                 <button className='play-btn'>►</button>
-            </div>
+                </div>
+                
+            </div>}           
         </div>
         </header>
     )
